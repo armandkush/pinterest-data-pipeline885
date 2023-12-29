@@ -11,19 +11,20 @@ Architecture Diagram:
 
 
 List of technologies used:
-    Python (pandas, numpy, re, phonenumbers, dateutil, yaml, sqlalchemy, tabula, requests, boto3)
-    PySpark
-    AWS EC2
-    AWS MSK Connect
-    AWS S3
-    AWS API Gateway
-    AWS MWAA
-    AWS Kinesis
-    Databricks
-    Apache Spark
-    Apache Airflow
-    Apache Kafka
-    GitHub
+
+    - Python (pandas, numpy, re, phonenumbers, dateutil, yaml, sqlalchemy, tabula, requests, boto3)
+    - PySpark
+    - AWS EC2
+    - AWS MSK Connect
+    - AWS S3
+    - AWS API Gateway
+    - AWS MWAA
+    - AWS Kinesis
+    - Databricks
+    - Apache Spark
+    - Apache Airflow
+    - Apache Kafka
+    - GitHub
 
 Installation instructions:
 
