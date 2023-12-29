@@ -6,6 +6,9 @@ Description:
 
 pinterest-data-pipeline is a project to simulate Pinterest's data pipeline systems using AWS Cloud as a technical exercise. Learning objectives included configuring the EC2 Kafka Client, connecting an MSK cluster to an S3 bucket to ingest data from EC2 Client, configuring an API in API Gateway, mounting and processing batch data using Spark on Databricks for cleaning and finding metrics, orchestrate a Databricks workload on AWS MWAA, send streaming data to Kinesis data streams and then read stream from Databricks leading to transformations using spark streaming before writing the transformed streamed data to Delta Tables on Databricks.
 
+Architecture Diagram:
+!(pinterest-data-pipeline885/Pinterest Project Data Architecture.png)
+
 
 List of technologies used:
     Python (pandas, numpy, re, phonenumbers, dateutil, yaml, sqlalchemy, tabula, requests, boto3)
