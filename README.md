@@ -9,6 +9,7 @@ pinterest-data-pipeline is a project to simulate Pinterest's data pipeline syste
 
 List of technologies used:
     Python (pandas, numpy, re, phonenumbers, dateutil, yaml, sqlalchemy, tabula, requests, boto3)
+    PySpark
     AWS EC2
     AWS MSK Connect
     AWS S3
@@ -24,50 +25,36 @@ List of technologies used:
 Installation instructions:
 
 1) Install python3 module in terminal
-2) Install PostgreSQL (recommended to install via PgAdmin4)
-3) Install Jupyter notebook in terminal via conda
-4) Clone the repo
+2) Clone the repo
 
 
 Usage instructions:
 
-1) Run all lines of code in main_operations.ipynb sequentially. Do note to change the credentials in the upload_to_db method in database_utils.py with your specific postgres server credentials.
-2) Run all files in Milestone 3 folder sequentially to create database schema. 
-3) Run all files in Milestone 4 folder for each queries stated in Milestone 4.
+1) Use .pem file and supplied credentials to connect to EC2 terminal using Terminal on MacOS
+2) Download and initialize Apache Kafka on the EC2 client machine.
+3) Install the IAM MSK authentication package on the EC2 client machine and initialize using the IAM console on your AWS account.
+4) Initialize the Kafka client by modifying client.properties file in kafka_folder/bin directory using your own credentials.
+5) Create Kafka topics on the EC2 client machine.
+6) Install the Confluent-7.2.0 package on the EC2 client machine.
+7) Modify the kafka-rest.properties file in the confluent-7.2.0/etc/ directory using your own credentials available in the API Gateway.
+8) Start the REST proxy on the EC2 client machine.
+9) Run user_posting_emulation.py through the terminal. (Check EC2 bucket to see if data is correctly ingested)
+10) Login to Databricks using supplied credentials.
+11) Open user-0e8c5a5fa275-notebook to clean data from EC2 and observe metrics using set queries.
+12) Open Apache Airflow UI on AWS to configure and set DAG running schedules for the Databricks Notebook
+13) Open user-0e8c5a5fa275-notebook-streaming to observe streaming data from Kinesis streams, the transformation and cleaning process before being store into Delta Tables on Databricks.
+
 
 
 File structure of the project:
 
 
     ├── ...
-    └── multinational-retail-data-centralisation    # Main folder
-        ├── data_cleaning.py         # File containing data cleaning methods
-        ├── data_extraction.py       # File containing methods for data extraction
-        ├── database_utils.py        # File containing methods to connect and manipulate database
-        ├── main_operations.ipynb    # Jupyter notebook file containing milestone 2 operations
-        ├── Milestone 3          # Folder containing sql files for milestone 3
-        │   ├── ms3_Task_1.sql       # SQL file containing query for Task 1 of milestone 3
-        │   ├── ms3_Task_2.sql       # SQL file containing query for Task 2 of milestone 3
-        │   ├── ms3_Task_3.sql       # SQL file containing query for Task 3 of milestone 3
-        │   ├── ms3_Task_4.sql       # SQL file containing query for Task 4 of milestone 3
-        │   ├── ms3_Task_5.sql       # SQL file containing query for Task 5 of milestone 3
-        │   ├── ms3_Task_6.sql       # SQL file containing query for Task 6 of milestone 3
-        │   ├── ms3_Task_7.sql       # SQL file containing query for Task 7 of milestone 3
-        │   ├── ms3_Task_8.sql       # SQL file containing query for Task 8 of milestone 3
-        │   └── ms3_Task_9.sql       # SQL file containing query for Task 9 of milestone 3
-        ├── Milestone 4          # Folder containing sql files for milestone 4
-        │   ├── ms4_Task_1.sql       # SQL file containing query for Task 1 of milestone 3
-        │   ├── ms4_Task_2.sql       # SQL file containing query for Task 2 of milestone 3
-        │   ├── ms4_Task_2.sql       # SQL file containing query for Task 2 of milestone 3
-        │   ├── ms4_Task_3.sql       # SQL file containing query for Task 3 of milestone 3
-        │   ├── ms4_Task_4.sql       # SQL file containing query for Task 4 of milestone 3
-        │   ├── ms4_Task_5.sql       # SQL file containing query for Task 5 of milestone 3
-        │   ├── ms4_Task_6.sql       # SQL file containing query for Task 6 of milestone 3
-        │   ├── ms4_Task_7.sql       # SQL file containing query for Task 7 of milestone 3
-        │   ├── ms4_Task_8.sql       # SQL file containing query for Task 8 of milestone 3
-        │   └──  ms4_Task_9.sql      # SQL file containing query for Task 9 of milestone 3
-        ├── temp.csv                 # File to contain temporary csv data for operations.
-        ├── products.csv             # File that contains product data downloaded from S3      
+    └── pinterest-data-pipeline885    # Main folder
+        ├── 0e8c5a5fa275-key-pair.pem    # Pem file containing credentials to connect to EC2 Instance
+        ├── user_posting_emulation.py      # File containing methods to emulate pinterest posts' data to connected EC2 bucket for batch processing. Calling the file directly will make it loop indefinitely
+        ├── user_posting_emulation_streaming.py     # File containing methods to emulate pinterest posts' data to connected Kinesis stream for stream processing. Calling the file directly will make it loop indefinitely
+        ├── 0e8c5a5fa275_dag.py   # File containing Airflow DAG data to schedule and automate Databricks runs. Schedule is set to daily     
         ├── LICENSE                  # File containing license information  
         └── README.md                # File containing essential information and instructions
 
